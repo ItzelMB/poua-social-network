@@ -16,7 +16,7 @@ class Firebase {
         app.initializeApp(config);
 
         this.auth = app.auth();
-        this.db = app.database();
+        //this.db = app.database();
     }
 
     //Auth API
@@ -29,8 +29,8 @@ class Firebase {
     doSignOut = () => this.auth.signOut();
 
     //User API
-    user = uid => this.db.ref(`users/${uid}`);
-    users = () => this.db.ref('users');
+    //user = uid => this.db.ref(`users/${uid}`);
+   // users = () => this.db.ref('users');
 }
 
 export default Firebase;
