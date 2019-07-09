@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
-import { renderComponent } from 'recompose';
 
 class AdminPage extends Component {
     constructor(props) {
