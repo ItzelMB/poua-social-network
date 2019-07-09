@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
-import { withAuthorization } from '../Session';
+import { AuthUserContext, withAuthorization } from '../Session';
 import { withFirebase } from '../Firebase';
 
 const HomePage = () => (
@@ -18,10 +18,26 @@ class MessagesBase extends Component {
         super(props);
 
         this.state = {
+            text: '',
             loading: false,
             messages: [],
         };
     }
+
+    onChangeText = event => {
+        this.setState({ text: event.target.value });
+    };
+
+    onCreateMessage = (event, authUser) => {
+        this.props.firebase.messages().push({
+            text: this.state.text,
+            userId: authUser.uid,
+        });
+
+        this.setState({ text: '' });
+
+        event.preventDefault();
+    };
 
     componentDidMount() {
         this.setState({ loading: true });
@@ -49,17 +65,26 @@ class MessagesBase extends Component {
     }
 
     render() {
-        const { messages, loading } = this.state;
+        const { text, messages, loading } = this.state;
 
         return (
-            <div>
-                {loading && <div>Loading ...</div>}
-                {messages ? (
-                    <MessageList messages={messages} />
-                ) : (
-                    <div>Aún no hay publicaciones ...</div>
+            <AuthUserContext.Consumer>
+                {authUser => (
+                    <div>
+                        {loading && <div>Loading ...</div>}
+                        {messages ? (
+                            <MessageList messages={messages} />
+                        ) : (
+                            <div>Aún no hay publicaciones ...</div>
+                        )}
+
+                        <form onSubmit={event => this.onCreateMessage(event, authUser)}>
+                            <input type="text" value={text} onChange={this.onChangeText}></input>
+                            <button type="submit">Publicar</button>
+                        </form>
+                    </div>
                 )}
-            </div>
+            </AuthUserContext.Consumer>
         );
     }
 }
