@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "09fa91daa547b65841a49e9a5bf47d2e",
+    "revision": "5e1d7063a87f8276c83a8321f6e1a12e",
     "url": "/poua-social-network/index.html"
   },
   {
-    "revision": "a23cedf3ec25fbb72632",
+    "revision": "0bfdfdf1af3073ba088d",
     "url": "/poua-social-network/static/css/main.34de6062.chunk.css"
   },
   {
-    "revision": "b2df58715ec60fe766a7",
-    "url": "/poua-social-network/static/js/2.101a09a0.chunk.js"
+    "revision": "92167222b7f0a27888db",
+    "url": "/poua-social-network/static/js/2.73e93817.chunk.js"
   },
   {
-    "revision": "a23cedf3ec25fbb72632",
-    "url": "/poua-social-network/static/js/main.739f875a.chunk.js"
+    "revision": "0bfdfdf1af3073ba088d",
+    "url": "/poua-social-network/static/js/main.fe393d40.chunk.js"
   },
   {
     "revision": "decb3ce0b6406596c72f",
