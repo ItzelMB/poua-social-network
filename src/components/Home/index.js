@@ -39,6 +39,14 @@ class MessagesBase extends Component {
         event.preventDefault();
     };
 
+    onRemoveMessage = uid => {
+        this.props.firebase.message(uid).remove();
+    };
+
+    onEditPost = () => {
+
+    };
+
     componentDidMount() {
         this.setState({ loading: true });
 
@@ -73,7 +81,11 @@ class MessagesBase extends Component {
                     <div>
                         {loading && <div>Loading ...</div>}
                         {messages ? (
-                            <MessageList messages={messages} />
+                            <MessageList
+                                messages={messages}
+                                onRemoveMessage={this.onRemoveMessage}
+                                onEditPost={this.onEditPost}
+                                />
                         ) : (
                             <div>Aún no hay publicaciones ...</div>
                         )}
@@ -89,20 +101,77 @@ class MessagesBase extends Component {
     }
 }
 
+class MessageItem extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state={
+            editMode: false,
+            editText: this.props.message.text,
+        };
+    }
+
+    onToggleEditMode = () => {
+        this.setState(state => ({
+            editMode: !state.editMode,
+            editText: this.props.message.text,
+        }));
+    };
+
+    onChangeEditText = event => {
+        this.setState({ editText: event.target.value });
+    };
+
+    onSaveEditText = () => {
+        this.props.onEditPost(this.props.message, this.state.editText);
+
+        this.setState({ editMode: false });
+    };
+
+    render() {
+        const { message, onRemoveMessage } = this.props;
+        const { editMode, editText } = this.state;
+
+        return(
+            <li>
+                {editMode ? (
+                    <input type="text" value={editText} onChange={this.onChangeEditText}></input>
+                ) : (
+                    <span>
+                        <strong>{message.userId}</strong> {message.text}
+                    </span>
+                )};
+
+                {editMode ? (
+                    <span>
+                        <button onClick={this.onSaveEditText}>Guardar</button>
+                        <button onClick={this.onToggleEditMode}>Limpiar</button>
+                    </span>
+                ) : (
+                    <button onClick={this.onToggleEditMode}>Editar</button>
+                )}
+
+                {!editMode && (
+                    <button type="button" onClick={() => onRemoveMessage(message.uid)}>Eliminar</button>
+                )}
+            </li>
+        );
+    }
+}
+
 const Messages = withFirebase(MessagesBase);
 
-const MessageList = ({ messages }) => (
+const MessageList = ({ messages, onRemoveMessage, onEditPost }) => (
     <ul>
         {messages.map(message => (
-            <MessageItem key={message.uid} message={message} />
+            <MessageItem
+                key={message.uid}
+                message={message}
+                onRemoveMessage={onRemoveMessage}
+                onEditPost={onEditPost}
+            />
         ))}
     </ul>
-);
-
-const MessageItem = ({ message }) => (
-    <li>
-        <strong>{message.userId}</strong> {message.text}
-    </li>
 );
 
 const condition = authUser => !!authUser;
