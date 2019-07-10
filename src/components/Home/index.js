@@ -89,6 +89,7 @@ class MessagesBase extends Component {
                         {loading && <div>Loading ...</div>}
                         {messages ? (
                             <MessageList
+                            authUser={authUser}
                                 messages={messages}
                                 onRemoveMessage={this.onRemoveMessage}
                                 onEditPost={this.onEditPost}
@@ -136,7 +137,7 @@ class MessageItem extends Component {
     };
 
     render() {
-        const { message, onRemoveMessage } = this.props;
+        const { authUser, message, onRemoveMessage } = this.props;
         const { editMode, editText } = this.state;
 
         return(
@@ -146,32 +147,39 @@ class MessageItem extends Component {
                 ) : (
                     <span>
                         <strong>{message.userId}</strong> {message.text}
+                        {message.time && <span>(Editado)</span>}
                     </span>
                 )};
 
-                {editMode ? (
+                {authUser.uid === message.userId && (
                     <span>
-                        <button onClick={this.onSaveEditText}>Guardar</button>
-                        <button onClick={this.onToggleEditMode}>Limpiar</button>
-                    </span>
-                ) : (
-                    <button onClick={this.onToggleEditMode}>Editar</button>
-                )}
+                        {editMode ? (
+                            <span>
+                                <button onClick={this.onSaveEditText}>Guardar</button>
+                                <button onClick={this.onToggleEditMode}>Limpiar</button>
+                            </span>
+                        ) : (
+                            <button onClick={this.onToggleEditMode}>Editar</button>
+                        )}
 
-                {!editMode && (
-                    <button type="button" onClick={() => onRemoveMessage(message.uid)}>Eliminar</button>
+                        {!editMode && (
+                            <button type="button" onClick={() => onRemoveMessage(message.uid)}>Eliminar</button>
+                        )}
+                    </span>
                 )}
             </li>
         );
     }
 }
 
+
 const Messages = withFirebase(MessagesBase);
 
-const MessageList = ({ messages, onRemoveMessage, onEditPost }) => (
+const MessageList = ({ authUser, messages, onRemoveMessage, onEditPost }) => (
     <ul>
         {messages.map(message => (
             <MessageItem
+                authUser={authUser}
                 key={message.uid}
                 message={message}
                 onRemoveMessage={onRemoveMessage}
