@@ -32,6 +32,7 @@ class MessagesBase extends Component {
         this.props.firebase.messages().push({
             text: this.state.text,
             userId: authUser.uid,
+            time: this.props.firebase.serverValue.TIMESTAMP,
         });
 
         this.setState({ text: '' });
@@ -43,8 +44,14 @@ class MessagesBase extends Component {
         this.props.firebase.message(uid).remove();
     };
 
-    onEditPost = () => {
+    onEditPost = (message, text) => {
+        const { uid, ...messageSnapshot } = message;
 
+        this.props.firebase.message(message.uid).set({
+            ...messageSnapshot,
+            text,
+            time: this.props.firebase.serverValue.TIMESTAMP,
+        });
     };
 
     componentDidMount() {
