@@ -30,24 +30,27 @@ class MessagesBase extends Component {
 
     onCreateMessage = (event, authUser) => {
         let userName;
+        const refThis = this;
 
         this.props.firebase.users().child(authUser.uid).child('username').once('value')
         .then(function(dataSnapshot) {
             userName = dataSnapshot.val();
             console.log(userName);
+        })
+        .then(function(){
+            console.log('hola' + userName);
+            refThis.props.firebase.messages().push({
+                text: refThis.state.text,
+                userId: authUser.uid,
+                username: userName,
+                time: refThis.props.firebase.serverValue.TIMESTAMP,
+            });
+
+            refThis.setState({ text: '' });
+
+            event.persist();
         });
-        console.log('hola' + userName);
 
-        this.props.firebase.messages().push({
-            text: this.state.text,
-            userId: authUser.uid,
-            username: userName,
-            time: this.props.firebase.serverValue.TIMESTAMP,
-        });
-
-        this.setState({ text: '' });
-
-        event.preventDefault();
     };
 
     onRemoveMessage = uid => {
@@ -156,7 +159,7 @@ class MessageItem extends Component {
                     <input type="text" value={editText} onChange={this.onChangeEditText}></input>
                 ) : (
                     <span>
-                        <strong>{message.userId}</strong> {message.text}
+                        <strong>{message.username}</strong> {message.text}
                         {message.time && <span>(Editado)</span>}
                     </span>
                 )};
