@@ -29,9 +29,19 @@ class MessagesBase extends Component {
     };
 
     onCreateMessage = (event, authUser) => {
+        let userName;
+
+        this.props.firebase.users().child(authUser.uid).child('username').once('value')
+        .then(function(dataSnapshot) {
+            userName = dataSnapshot.val();
+            console.log(userName);
+        });
+        console.log('hola' + userName);
+
         this.props.firebase.messages().push({
             text: this.state.text,
             userId: authUser.uid,
+            username: userName,
             time: this.props.firebase.serverValue.TIMESTAMP,
         });
 
@@ -89,7 +99,7 @@ class MessagesBase extends Component {
                         {loading && <div>Loading ...</div>}
                         {messages ? (
                             <MessageList
-                            authUser={authUser}
+                                authUser={authUser}
                                 messages={messages}
                                 onRemoveMessage={this.onRemoveMessage}
                                 onEditPost={this.onEditPost}
@@ -156,7 +166,7 @@ class MessageItem extends Component {
                         {editMode ? (
                             <span>
                                 <button onClick={this.onSaveEditText}>Guardar</button>
-                                <button onClick={this.onToggleEditMode}>Limpiar</button>
+                                <button onClick={this.onToggleEditMode}>Cancelar</button>
                             </span>
                         ) : (
                             <button onClick={this.onToggleEditMode}>Editar</button>
