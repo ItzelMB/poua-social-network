@@ -18,7 +18,7 @@ const NavigationAuth = () => (
         <ul>
             <li><Link to={ROUTES.LANDING}>Landing</Link></li>
             <li><Link to={ROUTES.HOME}>Muro</Link></li>
-            <li><Link to={ROUTES.ACCOUNT}>Cuenta</Link></li>
+            <li><Link to={ROUTES.ADMIN}>Cuenta</Link></li>
             <li><SignOutButton /></li>
         </ul>
 );

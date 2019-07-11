@@ -16,7 +16,9 @@ class Firebase {
         app.initializeApp(config);
 
         this.auth = app.auth();
-        //this.db = app.database();
+        this.db = app.database();
+
+        this.serverValue = app.database.ServerValue;
     }
 
     //Auth API
@@ -28,9 +30,18 @@ class Firebase {
 
     doSignOut = () => this.auth.signOut();
 
+    /*doSendEmailVerification = () =>
+    this.auth.currentUser.sendEmailVerification({
+        url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
+    });*/
+
     //User API
-    //user = uid => this.db.ref(`users/${uid}`);
-   // users = () => this.db.ref('users');
+    user = uid => this.db.ref(`users/${uid}`);
+    users = () => this.db.ref('users');
+
+    //Post API
+    message = uid => this.db.ref(`messages/${uid}`);
+    messages = () => this.db.ref('messages');
 }
 
 export default Firebase;
