@@ -16,16 +16,16 @@ const Navigation = () => (
 
 const NavigationAuth = () => (
         <ul>
-            <li><Link to={ROUTES.LANDING}>Landing</Link></li>
+            {/*<li><Link to={ROUTES.LANDING}>Landing</Link></li>*/}
             <li><Link to={ROUTES.HOME}>Muro</Link></li>
-            <li><Link to={ROUTES.ADMIN}>Cuenta</Link></li>
+            {/*<li><Link to={ROUTES.ADMIN}>Cuenta</Link></li>*/}
             <li><SignOutButton /></li>
         </ul>
 );
 
 const NavigationNonAuth = () => (
     <ul>
-        <li><Link to={ROUTES.LANDING}>Landing</Link></li>
+        {/*<li><Link to={ROUTES.LANDING}>Landing</Link></li>*/}
         <li><Link to={ROUTES.SIGN_IN}>Iniciar sesión</Link></li>
     </ul>
 );

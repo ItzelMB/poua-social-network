@@ -63,7 +63,7 @@ class MessagesBase extends Component {
         this.props.firebase.message(message.uid).set({
             ...messageSnapshot,
             text,
-            time: this.props.firebase.serverValue.TIMESTAMP,
+            editTime: this.props.firebase.serverValue.TIMESTAMP,
         });
     };
 
@@ -160,7 +160,7 @@ class MessageItem extends Component {
                 ) : (
                     <span>
                         <strong>{message.username}</strong> {message.text}
-                        {message.time && <span>(Editado)</span>}
+                        {message.editTime && <span>(Editado)</span>}
                     </span>
                 )};
 
