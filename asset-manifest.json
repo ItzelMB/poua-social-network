@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/poua-social-network/static/css/main.34de6062.chunk.css",
-    "main.js": "/poua-social-network/static/js/main.05d5c8b6.chunk.js",
-    "main.js.map": "/poua-social-network/static/js/main.05d5c8b6.chunk.js.map",
+    "main.css": "/poua-social-network/static/css/main.d498bfb3.chunk.css",
+    "main.js": "/poua-social-network/static/js/main.12646f61.chunk.js",
+    "main.js.map": "/poua-social-network/static/js/main.12646f61.chunk.js.map",
     "runtime~main.js": "/poua-social-network/static/js/runtime~main.113b0031.js",
     "runtime~main.js.map": "/poua-social-network/static/js/runtime~main.113b0031.js.map",
-    "static/js/2.91fa7dce.chunk.js": "/poua-social-network/static/js/2.91fa7dce.chunk.js",
-    "static/js/2.91fa7dce.chunk.js.map": "/poua-social-network/static/js/2.91fa7dce.chunk.js.map",
+    "static/js/2.78c43fb5.chunk.js": "/poua-social-network/static/js/2.78c43fb5.chunk.js",
+    "static/js/2.78c43fb5.chunk.js.map": "/poua-social-network/static/js/2.78c43fb5.chunk.js.map",
     "index.html": "/poua-social-network/index.html",
-    "precache-manifest.cea65913e3432e350d25f22183493138.js": "/poua-social-network/precache-manifest.cea65913e3432e350d25f22183493138.js",
+    "precache-manifest.0205cd1755c6a40908837045b8cc8cc5.js": "/poua-social-network/precache-manifest.0205cd1755c6a40908837045b8cc8cc5.js",
     "service-worker.js": "/poua-social-network/service-worker.js",
-    "static/css/main.34de6062.chunk.css.map": "/poua-social-network/static/css/main.34de6062.chunk.css.map"
+    "static/css/main.d498bfb3.chunk.css.map": "/poua-social-network/static/css/main.d498bfb3.chunk.css.map"
   }
 }

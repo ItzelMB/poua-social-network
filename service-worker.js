@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/poua-social-network/precache-manifest.cea65913e3432e350d25f22183493138.js"
+  "/poua-social-network/precache-manifest.0205cd1755c6a40908837045b8cc8cc5.js"
 );
 
 self.addEventListener('message', (event) => {
