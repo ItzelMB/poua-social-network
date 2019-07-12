@@ -29,15 +29,28 @@ class MessagesBase extends Component {
     };
 
     onCreateMessage = (event, authUser) => {
-        this.props.firebase.messages().push({
-            text: this.state.text,
-            userId: authUser.uid,
-            time: this.props.firebase.serverValue.TIMESTAMP,
+        let userName;
+        const refThis = this;
+
+        this.props.firebase.users().child(authUser.uid).child('username').once('value')
+        .then(function(dataSnapshot) {
+            userName = dataSnapshot.val();
+            console.log(userName);
+        })
+        .then(function(){
+            console.log('hola' + userName);
+            refThis.props.firebase.messages().push({
+                text: refThis.state.text,
+                userId: authUser.uid,
+                username: userName,
+                time: refThis.props.firebase.serverValue.TIMESTAMP,
+            });
+
+            refThis.setState({ text: '' });
+
+            event.persist();
         });
 
-        this.setState({ text: '' });
-
-        event.preventDefault();
     };
 
     onRemoveMessage = uid => {
@@ -50,7 +63,7 @@ class MessagesBase extends Component {
         this.props.firebase.message(message.uid).set({
             ...messageSnapshot,
             text,
-            time: this.props.firebase.serverValue.TIMESTAMP,
+            editTime: this.props.firebase.serverValue.TIMESTAMP,
         });
     };
 
@@ -89,7 +102,7 @@ class MessagesBase extends Component {
                         {loading && <div>Loading ...</div>}
                         {messages ? (
                             <MessageList
-                            authUser={authUser}
+                                authUser={authUser}
                                 messages={messages}
                                 onRemoveMessage={this.onRemoveMessage}
                                 onEditPost={this.onEditPost}
@@ -146,8 +159,8 @@ class MessageItem extends Component {
                     <input type="text" value={editText} onChange={this.onChangeEditText}></input>
                 ) : (
                     <span>
-                        <strong>{message.userId}</strong> {message.text}
-                        {message.time && <span>(Editado)</span>}
+                        <strong>{message.username}</strong> {message.text}
+                        {message.editTime && <span>(Editado)</span>}
                     </span>
                 )};
 
@@ -156,7 +169,7 @@ class MessageItem extends Component {
                         {editMode ? (
                             <span>
                                 <button onClick={this.onSaveEditText}>Guardar</button>
-                                <button onClick={this.onToggleEditMode}>Limpiar</button>
+                                <button onClick={this.onToggleEditMode}>Cancelar</button>
                             </span>
                         ) : (
                             <button onClick={this.onToggleEditMode}>Editar</button>
