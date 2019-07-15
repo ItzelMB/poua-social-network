@@ -4,6 +4,8 @@ import SignOutButton from '../SignOut';
 import { AuthUserContext } from '../Session';
 import * as ROUTES from '../../constants/routes';
 
+import './navigation.css';
+
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
 const Navigation = () => (
@@ -52,7 +54,7 @@ class NavigationAuth extends React.Component {
         return (
             <div>
                 <Navbar color="danger" light>
-                    <NavbarBrand href="/" className="mr-auto">POUA</NavbarBrand>
+                    <NavbarBrand href="/" className="mr-auto"><img className="img-logo" alt="logo" src="https://github.com/ItzelMB/GDL002-social-network/blob/master/public/src/imagenes/logo-poua-app.png?raw=true"></img></NavbarBrand>
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                     <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar>

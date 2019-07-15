@@ -4,12 +4,16 @@ import { compose } from 'recompose';
 import { AuthUserContext, withAuthorization } from '../Session';
 import { withFirebase } from '../Firebase';
 
+import './home.css';
+import { Button } from 'reactstrap';
+import Footer from '../Footer';
+
 const HomePage = () => (
     <div>
-        <h1>Muro de publicaciones</h1>
         {/*<p>Esta página es accesible para todos los usuarios con cuenta de sesión iniciada.</p>*/}
 
         <Messages />
+        <Footer />
     </div>
 );
 
@@ -99,19 +103,22 @@ class MessagesBase extends Component {
             <AuthUserContext.Consumer>
                 {authUser => (
                     <div>
-                        <form onSubmit={event => this.onCreateMessage(event, authUser)}>
+                        <form className="postForm" onSubmit={event => this.onCreateMessage(event, authUser)}>
+                            <h4>Crear Publicación</h4>
                             <textarea className="createPostArea" type="text" value={text} onChange={this.onChangeText} cols="90" rows="7"></textarea>
-                            <button type="submit">Publicar</button>
+                            <div><Button color="warning" type="submit" >Publicar</Button></div>
                         </form>
 
                         {loading && <div>Loading ...</div>}
                         {messages ? (
-                            <MessageList
-                                authUser={authUser}
-                                messages={messages}
-                                onRemoveMessage={this.onRemoveMessage}
-                                onEditPost={this.onEditPost}
+                            <container>
+                                <MessageList
+                                    authUser={authUser}
+                                    messages={messages}
+                                    onRemoveMessage={this.onRemoveMessage}
+                                    onEditPost={this.onEditPost}
                                 />
+                            </container>
                         ) : (
                             <div>Aún no hay publicaciones ...</div>
                         )}
@@ -154,29 +161,34 @@ class MessageItem extends Component {
         const { editMode, editText } = this.state;
 
         return(
-            <li>
+            <li className="post">
                 {editMode ? (
-                    <input type="text" value={editText} onChange={this.onChangeEditText}></input>
+                    <textarea type="text" value={editText} onChange={this.onChangeEditText}></textarea>
                 ) : (
                     <span>
-                        <strong>{message.username}</strong> {message.text}
-                        {message.editTime && <span>(Editado)</span>}
+                        <strong>{message.username}</strong>
+                        <div className="textPost">
+                            {message.text}
+                            {message.editTime && <span><strong> (Editado)</strong></span>}
+                        </div>
                     </span>
-                )};
+                )}
 
                 {authUser.uid === message.userId && (
                     <span>
                         {editMode ? (
                             <span>
-                                <button onClick={this.onSaveEditText}>Guardar</button>
-                                <button onClick={this.onToggleEditMode}>Cancelar</button>
+                                <Button color="warning" onClick={this.onSaveEditText}>Guardar</Button>
+                                <Button color="warning" onClick={this.onToggleEditMode}>Cancelar</Button>
                             </span>
                         ) : (
-                            <button onClick={this.onToggleEditMode}>Editar</button>
+                            <Button color="warning" onClick={this.onToggleEditMode}>Editar</Button>
+                            //<button onClick={this.onToggleEditMode}>Editar</button>
                         )}
 
                         {!editMode && (
-                            <button type="button" onClick={() => onRemoveMessage(message.uid)}>Eliminar</button>
+                            <Button color="warning" type="button" onClick={() => onRemoveMessage(message.uid)}>Eliminar</Button>
+                            //<button type="button" onClick={() => onRemoveMessage(message.uid)}>Eliminar</button>
                         )}
                     </span>
                 )}
@@ -205,3 +217,5 @@ const MessageList = ({ authUser, messages, onRemoveMessage, onEditPost }) => (
 const condition = authUser => !!authUser;
 
 export default compose(withAuthorization(condition))(HomePage);
+
+export { Button };

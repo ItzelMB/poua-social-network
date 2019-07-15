@@ -10,3 +10,39 @@ textarea {
     padding-left: 1rem;
     padding-top: 1rem;
 }
+
+form {
+    height: 100%;
+    width: 85%;
+    background-color: #ffffff;
+    padding: 35px;
+    margin: auto;
+}
+
+ul {
+    margin: auto;
+    height: 100%;
+    width: 85%;
+    padding: 0;
+}
+
+.post {
+    background-color: #ffffff;
+    padding: 35px;
+    margin: auto;
+    margin-bottom: 15px;
+    text-decoration: none;
+    list-style: none;
+}
+
+.btn-warning {
+    margin: 10px;
+}
+
+.navbar-toggler-icon {
+    color: #ffffff;
+}
+
+.textPost {
+    text-align: left;
+}
