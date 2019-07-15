@@ -1,23 +1,49 @@
-input {
+/*Estilos para login desktop*/
+.inputLogin {
     background-color: #E8E7E7;
     width: 450px;
     height: 60px;
     border: 0;
-    margin: 15px;
+    margin: 30px 15px 0px 15px;
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     text-align: left;
     padding-left: 10px;
 }
 
-button {
-    background-color: #F1C711;
+.btnLogin {
     width: 450px;
     height: 60px;
     border: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     color: #FFFFFF;
-    margin-top: 15px;
+    margin-top: 30px;
     margin-bottom: 1rem;
 }
+
+.bannerInicio {
+    width: 100%;
+    display: block;
+}
+
+
+/*Estilos para login mobile*/
+/*
+@media screen and (max-width:800px) {
+.inputLogin {
+    width: 250px;
+    height: 45px;
+    margin-top:15px;
+    font-size: .9rem;
+}
+
+.btnLogin {
+    width: 250px;
+    height: 45px;
+    margin-top: 15px;
+}
+
+.bannerInicio {
+    display: none;
+}*/

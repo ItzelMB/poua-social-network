@@ -99,6 +99,11 @@ class MessagesBase extends Component {
             <AuthUserContext.Consumer>
                 {authUser => (
                     <div>
+                        <form onSubmit={event => this.onCreateMessage(event, authUser)}>
+                            <textarea className="createPostArea" type="text" value={text} onChange={this.onChangeText} cols="90" rows="7"></textarea>
+                            <button type="submit">Publicar</button>
+                        </form>
+
                         {loading && <div>Loading ...</div>}
                         {messages ? (
                             <MessageList
@@ -110,11 +115,6 @@ class MessagesBase extends Component {
                         ) : (
                             <div>Aún no hay publicaciones ...</div>
                         )}
-
-                        <form onSubmit={event => this.onCreateMessage(event, authUser)}>
-                            <input type="text" value={text} onChange={this.onChangeText}></input>
-                            <button type="submit">Publicar</button>
-                        </form>
                     </div>
                 )}
             </AuthUserContext.Consumer>
