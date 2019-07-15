@@ -1,0 +1,11 @@
+* {
+  margin: 0;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-image: url('https://github.com/ItzelMB/GDL002-social-network/blob/master/public/src/css/imagenes/red-bg-350.png?raw=true');
+  background-attachment: fixed;
+  background-repeat: repeat;
+}

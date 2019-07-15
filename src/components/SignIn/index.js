@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-
+import './signIn.css';
 import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 const SignInPage = () => (
     <div>
+        <image url="./img/banner.png" alt="banner Poua"></image>
         <h1>Inicio de sesión</h1>
         <SignInForm />
         <SignUpLink />
