@@ -1,3 +1,15 @@
 .img-logo {
     width: 180px;
 }
+
+.navbar {
+    background-color:#ED0078;
+}
+
+.link-nav {
+    color: #ffffff;
+}
+
+.nav-link {
+    margin-top: 12px;
+}

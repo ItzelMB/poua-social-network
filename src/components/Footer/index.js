@@ -3,7 +3,7 @@ import './footer.css';
 
 const Footer = () => (
     <footer>
-        <h3>Powered By Perla, Jess & Itinna. 2019</h3>
+        <p className="footerParr">Powered By Perla, Jess & Itinna. 2019</p>
     </footer>
 );
 

@@ -103,10 +103,10 @@ class MessagesBase extends Component {
             <AuthUserContext.Consumer>
                 {authUser => (
                     <div>
-                        <form className="postForm" onSubmit={event => this.onCreateMessage(event, authUser)}>
-                            <h4>Crear Publicación</h4>
-                            <textarea className="createPostArea" type="text" value={text} onChange={this.onChangeText} cols="90" rows="7"></textarea>
-                            <div><Button color="warning" type="submit" >Publicar</Button></div>
+                        <form className="formPost" onSubmit={event => this.onCreateMessage(event, authUser)}>
+                            <h4>Crear una publicación</h4>
+                            <textarea className="createPostArea" type="text" value={text} onChange={this.onChangeText} cols="90" rows="6"></textarea>
+                            <div><Button className="btnPublish" color="warning" type="submit" >PUBLICAR</Button></div>
                         </form>
 
                         {loading && <div>Loading ...</div>}
@@ -166,7 +166,7 @@ class MessageItem extends Component {
                     <textarea type="text" value={editText} onChange={this.onChangeEditText}></textarea>
                 ) : (
                     <span>
-                        <strong>{message.username}</strong>
+                        <strong>{message.username + " poua que..."}</strong>
                         <div className="textPost">
                             {message.text}
                             {message.editTime && <span><strong> (Editado)</strong></span>}
@@ -182,12 +182,12 @@ class MessageItem extends Component {
                                 <Button color="warning" onClick={this.onToggleEditMode}>Cancelar</Button>
                             </span>
                         ) : (
-                            <Button color="warning" onClick={this.onToggleEditMode}>Editar</Button>
+                            <Button color="warning" onClick={this.onToggleEditMode}><i class="fas fa-edit"></i></Button>
                             //<button onClick={this.onToggleEditMode}>Editar</button>
                         )}
 
                         {!editMode && (
-                            <Button color="warning" type="button" onClick={() => onRemoveMessage(message.uid)}>Eliminar</Button>
+                            <Button color="warning" type="button" onClick={() => onRemoveMessage(message.uid)}><i class="fas fa-trash-alt"></i></Button>
                             //<button type="button" onClick={() => onRemoveMessage(message.uid)}>Eliminar</button>
                         )}
                     </span>

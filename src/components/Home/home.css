@@ -11,18 +11,23 @@ textarea {
     padding-top: 1rem;
 }
 
-form {
+h4 {
+    color: #ED0078;
+}
+
+.formPost {
     height: 100%;
-    width: 85%;
+    width: 80%;
     background-color: #ffffff;
     padding: 35px;
     margin: auto;
+    border-radius: 15px;
 }
 
 ul {
     margin: auto;
     height: 100%;
-    width: 85%;
+    width: 80%;
     padding: 0;
 }
 
@@ -33,10 +38,12 @@ ul {
     margin-bottom: 15px;
     text-decoration: none;
     list-style: none;
+    border-radius: 15px;
 }
 
 .btn-warning {
-    margin: 10px;
+    margin: 20px 10px 10px 10px;
+    width: 85px;
 }
 
 .navbar-toggler-icon {
@@ -45,4 +52,8 @@ ul {
 
 .textPost {
     text-align: left;
+}
+
+.btnPublish {
+    width: 250px;
 }
