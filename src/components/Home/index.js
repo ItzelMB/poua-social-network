@@ -104,12 +104,12 @@ class MessagesBase extends Component {
                 {authUser => (
                     <div>
                         <form className="formPost" onSubmit={event => this.onCreateMessage(event, authUser)}>
-                            <h4>Crear una publicación</h4>
+                            <h4>Cuenta una historia</h4>
                             <textarea className="createPostArea" type="text" value={text} onChange={this.onChangeText} cols="90" rows="6"></textarea>
-                            <div><Button className="btnPublish" color="warning" type="submit" >PUBLICAR</Button></div>
+                            <div><Button className="btnPublish" color="warning" type="submit">PUBLICAR</Button></div>
                         </form>
 
-                        {loading && <div>Loading ...</div>}
+                        {loading && <div>Cargando publicaciones ...</div>}
                         {messages ? (
                             <container>
                                 <MessageList

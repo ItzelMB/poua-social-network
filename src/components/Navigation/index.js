@@ -54,7 +54,7 @@ class NavigationAuth extends React.Component {
         return (
             <div>
                 <Navbar light>
-                    <NavbarBrand href="/" className="mr-auto"><img className="img-logo" alt="logo" src="https://github.com/ItzelMB/GDL002-social-network/blob/master/public/src/imagenes/logo-poua-app.png?raw=true"></img></NavbarBrand>
+                    <NavbarBrand className="mr-auto"><img className="img-logo" alt="logo" src="https://github.com/ItzelMB/GDL002-social-network/blob/master/public/src/imagenes/logo-poua-app.png?raw=true"></img></NavbarBrand>
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                     <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar>
@@ -73,6 +73,7 @@ class NavigationAuth extends React.Component {
     }
 };
 
+/*
 class NavigationNonAuth extends React.Component {
     constructor(props) {
         super(props);
@@ -107,9 +108,9 @@ class NavigationNonAuth extends React.Component {
         );
     }
 }
-
+*/
 
 export default Navigation;
 
 export { NavigationAuth };
-export { NavigationNonAuth };
+//export { NavigationNonAuth };

@@ -10,7 +10,6 @@ import { Button } from 'reactstrap';
 
 const SignInPage = () => (
     <div>
-        <image url="./img/banner.png" alt="banner Poua"></image>
         <img className="bannerInicio" alt="banner-inicio" src="https://github.com/ItzelMB/GDL002-social-network/blob/master/public/src/imagenes/inicio-banner.png?raw=true"></img>
         <SignInForm />
         <SignUpLink />
@@ -57,9 +56,9 @@ class SignInFormBase extends Component {
 
         return (
             <form className="formLogin" onSubmit={this.onSubmit}>
-                <div><input className="inputLogin" name="email" value= {email} onChange={this.onChange} type="text" placeholder="Correo electrónico"></input></div>
-                <div><input className="inputLogin" name="password" value= {password} onChange={this.onChange} type="password" placeholder="Contraseña"></input></div>
-                <Button className="btnLogin" color="warning" disabled={isInvalid} type="submit" >INICIAR SESIÓN</Button>
+                <div><input className="inputLogin" name="email" value= {email} onChange={this.onChange} type="text" placeholder="Correo electrónico" autoComplete="off"></input></div>
+                <div><input className="inputLogin" name="password" value= {password} onChange={this.onChange} type="password" placeholder="Contraseña" autoComplete="off"></input></div>
+                <Button color="warning" className="btnLogin" disabled={isInvalid} type="submit" >INICIAR SESIÓN</Button>
                 {/*<button disabled={isInvalid} type="submit" >Iniciar sesión</button>*/}
                 {error && <p>{error.message}</p>}
             </form>

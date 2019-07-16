@@ -43,7 +43,6 @@ ul {
 
 .btn-warning {
     margin: 20px 10px 10px 10px;
-    width: 85px;
 }
 
 .navbar-toggler-icon {
@@ -55,5 +54,5 @@ ul {
 }
 
 .btnPublish {
-    width: 250px;
+    width: 200px;
 }
