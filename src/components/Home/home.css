@@ -56,3 +56,8 @@ ul {
 .btnPublish {
     width: 200px;
 }
+
+.btnsContainer {
+    display: flex;
+    justify-content: flex-end;
+}

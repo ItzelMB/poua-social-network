@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.counter {
+    text-align: right;
+    margin-left: 10px;
+    font-size: 1.2rem;}
+
+.like {
+    justify-content: flex-start;
+    background-color: #ffffff;
+    border: 0;
+    height: 1.2rem;
+}
+
+.fa-heart {
+    color: #ED0078;
+    font-size: 1.3rem;
+}

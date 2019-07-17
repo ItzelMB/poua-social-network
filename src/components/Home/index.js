@@ -7,6 +7,8 @@ import { withFirebase } from '../Firebase';
 import './home.css';
 import { Button } from 'reactstrap';
 import Footer from '../Footer';
+import Likes from '../Likes';
+import PhotoUpload from '../PhotoUpload';
 
 const HomePage = () => (
     <div>
@@ -99,14 +101,19 @@ class MessagesBase extends Component {
     render() {
         const { text, messages, loading } = this.state;
 
+        const noPublish = text === '';
+
         return (
             <AuthUserContext.Consumer>
                 {authUser => (
                     <div>
                         <form className="formPost" onSubmit={event => this.onCreateMessage(event, authUser)}>
-                            <h4>Cuenta una historia</h4>
-                            <textarea className="createPostArea" type="text" value={text} onChange={this.onChangeText} cols="90" rows="6"></textarea>
-                            <div><Button className="btnPublish" color="warning" type="submit">PUBLICAR</Button></div>
+                            <h4>Poua una historia</h4>
+                            <textarea className="createPostArea" type="text" value={text} onChange={this.onChangeText} cols="90" rows="6" placeholder="Comienza a escribir aquí tu historia..."></textarea>
+                            <div>
+                                <PhotoUpload />
+                                <Button className="btnPublish" color="warning" type="submit" disabled={noPublish}>PUBLICAR</Button>
+                            </div>
                         </form>
 
                         {loading && <div>Cargando publicaciones ...</div>}
@@ -162,20 +169,8 @@ class MessageItem extends Component {
 
         return(
             <li className="post">
-                {editMode ? (
-                    <textarea type="text" value={editText} onChange={this.onChangeEditText}></textarea>
-                ) : (
-                    <span>
-                        <strong>{message.username + " poua que..."}</strong>
-                        <div className="textPost">
-                            {message.text}
-                            {message.editTime && <span><strong> (Editado)</strong></span>}
-                        </div>
-                    </span>
-                )}
-
                 {authUser.uid === message.userId && (
-                    <span>
+                    <span className="btnsContainer">
                         {editMode ? (
                             <span>
                                 <Button color="warning" onClick={this.onSaveEditText}>Guardar</Button>
@@ -192,6 +187,20 @@ class MessageItem extends Component {
                         )}
                     </span>
                 )}
+
+                {editMode ? (
+                    <textarea type="text" value={editText} onChange={this.onChangeEditText}></textarea>
+                ) : (
+                    <span>
+                        <strong>{message.username + " cuenta que..."}</strong>
+                        <div className="textPost">
+                            {message.text}
+                            {message.editTime && <span><strong> (Editado)</strong></span>}
+                        </div>
+                    </span>
+                )}
+
+                <Likes />
             </li>
         );
     }
