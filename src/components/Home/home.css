@@ -21,6 +21,7 @@ h4 {
     background-color: #ffffff;
     padding: 35px;
     margin: auto;
+    margin-bottom: 25px;
     border-radius: 15px;
 }
 
@@ -51,6 +52,7 @@ ul {
 
 .textPost {
     text-align: left;
+    margin-top: 1rem;
 }
 
 .btnPublish {
