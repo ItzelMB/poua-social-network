@@ -29,6 +29,7 @@ class PostsBase extends Component {
             posts: [],
             photo: null,
             uploadValue: 0,
+            likes: 0,
         };
 
         //this.handlePhotoUpload = this.handlePhotoUpload.bind(this);
@@ -83,11 +84,8 @@ class PostsBase extends Component {
         const uploadFile = storageRef.put(file)
 
         const thisUpload = this;
-        //console.log(this);
 
         uploadFile.on('state_changed', snapshot => {
-            //console.log(this.state);
-            //console.log(thisUpload);
             let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             thisUpload.setState({
                 uploadValue: percentage,
@@ -106,7 +104,6 @@ class PostsBase extends Component {
             );
         });
     }
-
 
     componentDidMount() {
         this.setState({ loading: true });
@@ -198,9 +195,13 @@ class PostItem extends Component {
         this.setState({ editMode: false });
     };
 
+    
+    
+
     render() {
         const { authUser, post, onRemovePost } = this.props;
         const { editMode, editText } = this.state;
+        console.log(post);
 
         return(
             <li className="post">
@@ -238,7 +239,7 @@ class PostItem extends Component {
                     </span>
                 )}
 
-                <Likes />
+                <Likes post={post} />
             </li>
         );
     }

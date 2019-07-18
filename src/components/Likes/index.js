@@ -6,21 +6,24 @@ class Likes extends Component {
         super(props);
 
         this.state = {
-            likes: 0,
+            post: this.props.post,
         }
     }
 
     handleLike = () => {
-        this.setState({
-            likes: this.state.likes + 1,
-        })
+        //const postId = post.uid;
+        const postCopy =this.state.post;
+        postCopy.likes = postCopy.likes + 1;
+        this.setState({ post : postCopy});
+        console.log("lie"+this.state.post.uid);
     }
 
     render() {
+        console.log(this.state.post);
         return(
             <container className="container">
                 <button className="like" onClick={this.handleLike}><i class="fas fa-heart"></i></button>
-                <p className="counter">{this.state.likes}</p>
+                <p className="counter">{this.props.post.likes}</p>
             </container>
         );
     }
