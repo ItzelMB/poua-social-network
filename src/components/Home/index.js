@@ -231,6 +231,9 @@ class PostItem extends Component {
                         <div className="textPost">
                             {post.text}
                             {post.editTime && <span><strong> (Editado)</strong></span>}
+                            <div>
+                                <img src={post.photoUrl} alt='' className="postImage"></img>
+                            </div>
                         </div>
                     </span>
                 )}

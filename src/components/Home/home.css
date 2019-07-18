@@ -63,3 +63,9 @@ ul {
     display: flex;
     justify-content: flex-end;
 }
+
+.postImage {
+    width: 90%;
+    margin: auto;
+    margin-top: 25px;
+}
