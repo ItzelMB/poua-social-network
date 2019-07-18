@@ -27,7 +27,11 @@ class PostsBase extends Component {
             text: '',
             loading: false,
             posts: [],
+            photo: null,
+            uploadValue: 0,
         };
+
+        //this.handlePhotoUpload = this.handlePhotoUpload.bind(this);
     }
 
     onChangeText = event => {
@@ -37,6 +41,7 @@ class PostsBase extends Component {
     onCreatePosts = (event, authUser) => {
         let userName;
         const refThis = this;
+        console.log('photo url' + refThis.state.photo);
 
         this.props.firebase.users().child(authUser.uid).child('username').once('value')
         .then(function(dataSnapshot) {
@@ -48,6 +53,7 @@ class PostsBase extends Component {
                 userId: authUser.uid,
                 username: userName,
                 time: refThis.props.firebase.serverValue.TIMESTAMP,
+                photoUrl: refThis.state.photo,
             });
 
             refThis.setState({ text: '' });
@@ -70,6 +76,37 @@ class PostsBase extends Component {
             editTime: this.props.firebase.serverValue.TIMESTAMP,
         });
     };
+
+    handlePhotoUpload = event => {
+        const file = event.target.files[0];
+        const storageRef = this.props.firebase.storageRef(`/photos/${file.name}`);
+        const uploadFile = storageRef.put(file)
+
+        const thisUpload = this;
+        //console.log(this);
+
+        uploadFile.on('state_changed', snapshot => {
+            //console.log(this.state);
+            //console.log(thisUpload);
+            let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            thisUpload.setState({
+                uploadValue: percentage,
+            })
+        }, error => {
+            console.log(error.message)
+        }, () => {
+            uploadFile.snapshot.ref.getDownloadURL().then(
+                (url) => {
+                    console.log(url);
+                    thisUpload.setState({
+                        uploadValue: 100,
+                        photo: url,
+                    });
+                }
+            );
+        });
+    }
+
 
     componentDidMount() {
         this.setState({ loading: true });
@@ -109,7 +146,7 @@ class PostsBase extends Component {
                             <h4>Poua una historia</h4>
                             <textarea className="createPostArea" type="text" value={text} onChange={this.onChangeText} cols="90" rows="6" placeholder="Comienza a escribir aquí tu historia..."></textarea>
                             <div>
-                                <PhotoUpload />
+                                <PhotoUpload onUpload={this.handlePhotoUpload} uploadValue={this.state.uploadValue} />
                                 <Button className="btnPublish" color="warning" type="submit" disabled={noPublish}>PUBLICAR</Button>
                             </div>
                         </form>

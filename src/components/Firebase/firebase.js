@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/storage';
 
 const config = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -17,6 +18,7 @@ class Firebase {
 
         this.auth = app.auth();
         this.db = app.database();
+        this.storage = app.storage();
 
         this.serverValue = app.database.ServerValue;
     }
@@ -42,6 +44,8 @@ class Firebase {
     //Post API
     post = uid => this.db.ref(`posts/${uid}`);
     posts = () => this.db.ref('posts');
+
+    storageRef = (url) => this.storage.ref(url);
 }
 
 export default Firebase;
