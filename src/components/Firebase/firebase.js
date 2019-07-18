@@ -40,8 +40,8 @@ class Firebase {
     users = () => this.db.ref('users');
 
     //Post API
-    message = uid => this.db.ref(`messages/${uid}`);
-    messages = () => this.db.ref('messages');
+    post = uid => this.db.ref(`posts/${uid}`);
+    posts = () => this.db.ref('posts');
 }
 
 export default Firebase;

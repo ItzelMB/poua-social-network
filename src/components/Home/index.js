@@ -14,19 +14,19 @@ const HomePage = () => (
     <div>
         {/*<p>Esta página es accesible para todos los usuarios con cuenta de sesión iniciada.</p>*/}
 
-        <Messages />
+        <Posts />
         <Footer />
     </div>
 );
 
-class MessagesBase extends Component {
+class PostsBase extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             text: '',
             loading: false,
-            messages: [],
+            posts: [],
         };
     }
 
@@ -34,18 +34,16 @@ class MessagesBase extends Component {
         this.setState({ text: event.target.value });
     };
 
-    onCreateMessage = (event, authUser) => {
+    onCreatePosts = (event, authUser) => {
         let userName;
         const refThis = this;
 
         this.props.firebase.users().child(authUser.uid).child('username').once('value')
         .then(function(dataSnapshot) {
             userName = dataSnapshot.val();
-            console.log(userName);
         })
         .then(function(){
-            console.log('hola' + userName);
-            refThis.props.firebase.messages().push({
+            refThis.props.firebase.posts().push({
                 text: refThis.state.text,
                 userId: authUser.uid,
                 username: userName,
@@ -59,15 +57,15 @@ class MessagesBase extends Component {
 
     };
 
-    onRemoveMessage = uid => {
-        this.props.firebase.message(uid).remove();
+    onRemovePost = uid => {
+        this.props.firebase.post(uid).remove();
     };
 
-    onEditPost = (message, text) => {
-        const { uid, ...messageSnapshot } = message;
+    onEditPost = (post, text) => {
+        const { uid, ...postSnapshot } = post;
 
-        this.props.firebase.message(message.uid).set({
-            ...messageSnapshot,
+        this.props.firebase.post(post.uid).set({
+            ...postSnapshot,
             text,
             editTime: this.props.firebase.serverValue.TIMESTAMP,
         });
@@ -76,30 +74,30 @@ class MessagesBase extends Component {
     componentDidMount() {
         this.setState({ loading: true });
 
-        this.props.firebase.messages().on('value', snapshot => {
-            const messageObject = snapshot.val();
+        this.props.firebase.posts().on('value', snapshot => {
+            const postObject = snapshot.val();
 
-            if (messageObject) {
-                const messageList = Object.keys(messageObject).map(key => ({
-                    ...messageObject[key],
+            if (postObject) {
+                const postsList = Object.keys(postObject).map(key => ({
+                    ...postObject[key],
                     uid: key,
                 }));
                 this.setState({
-                    messages: messageList,
-                    loadinf: false,
+                    posts: postsList,
+                    loading: false,
                 });
             } else {
-                this.setState({ messages: null, loading:false });
+                this.setState({ posts: null, loading:false });
             }
         });
     }
 
     componentWillUnmount() {
-        this.props.firebase.messages().off();
+        this.props.firebase.posts().off();
     }
 
     render() {
-        const { text, messages, loading } = this.state;
+        const { text, posts, loading } = this.state;
 
         const noPublish = text === '';
 
@@ -107,7 +105,7 @@ class MessagesBase extends Component {
             <AuthUserContext.Consumer>
                 {authUser => (
                     <div>
-                        <form className="formPost" onSubmit={event => this.onCreateMessage(event, authUser)}>
+                        <form className="formPost" onSubmit={event => this.onCreatePosts(event, authUser)}>
                             <h4>Poua una historia</h4>
                             <textarea className="createPostArea" type="text" value={text} onChange={this.onChangeText} cols="90" rows="6" placeholder="Comienza a escribir aquí tu historia..."></textarea>
                             <div>
@@ -117,15 +115,15 @@ class MessagesBase extends Component {
                         </form>
 
                         {loading && <div>Cargando publicaciones ...</div>}
-                        {messages ? (
-                            <container>
-                                <MessageList
+                        {posts ? (
+                            <div>
+                                <PostList
                                     authUser={authUser}
-                                    messages={messages}
-                                    onRemoveMessage={this.onRemoveMessage}
+                                    posts={posts}
+                                    onRemovePost={this.onRemovePost}
                                     onEditPost={this.onEditPost}
                                 />
-                            </container>
+                            </div>
                         ) : (
                             <div>Aún no hay publicaciones ...</div>
                         )}
@@ -136,20 +134,20 @@ class MessagesBase extends Component {
     }
 }
 
-class MessageItem extends Component {
+class PostItem extends Component {
     constructor(props) {
         super(props);
 
         this.state={
             editMode: false,
-            editText: this.props.message.text,
+            editText: this.props.post.text,
         };
     }
 
     onToggleEditMode = () => {
         this.setState(state => ({
             editMode: !state.editMode,
-            editText: this.props.message.text,
+            editText: this.props.post.text,
         }));
     };
 
@@ -158,18 +156,18 @@ class MessageItem extends Component {
     };
 
     onSaveEditText = () => {
-        this.props.onEditPost(this.props.message, this.state.editText);
+        this.props.onEditPost(this.props.post, this.state.editText);
 
         this.setState({ editMode: false });
     };
 
     render() {
-        const { authUser, message, onRemoveMessage } = this.props;
+        const { authUser, post, onRemovePost } = this.props;
         const { editMode, editText } = this.state;
 
         return(
             <li className="post">
-                {authUser.uid === message.userId && (
+                {authUser.uid === post.userId && (
                     <span className="btnsContainer">
                         {editMode ? (
                             <span>
@@ -182,7 +180,7 @@ class MessageItem extends Component {
                         )}
 
                         {!editMode && (
-                            <Button color="warning" type="button" onClick={() => onRemoveMessage(message.uid)}><i class="fas fa-trash-alt"></i></Button>
+                            <Button color="warning" type="button" onClick={() => onRemovePost(post.uid)}><i class="fas fa-trash-alt"></i></Button>
                             //<button type="button" onClick={() => onRemoveMessage(message.uid)}>Eliminar</button>
                         )}
                     </span>
@@ -192,10 +190,10 @@ class MessageItem extends Component {
                     <textarea type="text" value={editText} onChange={this.onChangeEditText}></textarea>
                 ) : (
                     <span>
-                        <strong>{message.username + " cuenta que..."}</strong>
+                        <strong>{post.username + " cuenta que..."}</strong>
                         <div className="textPost">
-                            {message.text}
-                            {message.editTime && <span><strong> (Editado)</strong></span>}
+                            {post.text}
+                            {post.editTime && <span><strong> (Editado)</strong></span>}
                         </div>
                     </span>
                 )}
@@ -207,16 +205,16 @@ class MessageItem extends Component {
 }
 
 
-const Messages = withFirebase(MessagesBase);
+const Posts = withFirebase(PostsBase);
 
-const MessageList = ({ authUser, messages, onRemoveMessage, onEditPost }) => (
+const PostList = ({ authUser, posts, onRemovePost, onEditPost }) => (
     <ul>
-        {messages.map(message => (
-            <MessageItem
+        {posts.map(post => (
+            <PostItem
                 authUser={authUser}
-                key={message.uid}
-                message={message}
-                onRemoveMessage={onRemoveMessage}
+                key={post.uid}
+                post={post}
+                onRemovePost={onRemovePost}
                 onEditPost={onEditPost}
             />
         ))}

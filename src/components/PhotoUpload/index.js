@@ -14,12 +14,12 @@ class PhotoUpload extends Component {
 
     render(){
         return(
-            <container>
+            <div>
                 <progress value={this.state.uploadValue}></progress>
                 <label for="uploadPhoto"><i class="fas fa-file-upload"></i></label>
                 <input type="file" id="uploadPhoto" onChange={this.props.onUpload}></input>
                 <img src={this.state.photo} alt="" width="450" ></img>
-            </container>
+            </div>
         )
     }
 };
