@@ -55,6 +55,7 @@ class PostsBase extends Component {
                 username: userName,
                 time: refThis.props.firebase.serverValue.TIMESTAMP,
                 photoUrl: refThis.state.photo,
+                likes: 0,
             });
 
             refThis.setState({ text: '' });
