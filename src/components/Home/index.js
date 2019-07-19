@@ -117,7 +117,7 @@ class PostsBase extends Component {
                     uid: key,
                 }));
                 this.setState({
-                    posts: postsList,
+                    posts: postsList.reverse(),
                     loading: false,
                 });
             } else {
@@ -195,9 +195,6 @@ class PostItem extends Component {
         this.setState({ editMode: false });
     };
 
-    
-    
-
     render() {
         const { authUser, post, onRemovePost } = this.props;
         const { editMode, editText } = this.state;
@@ -239,7 +236,7 @@ class PostItem extends Component {
                     </span>
                 )}
 
-                <Likes post={post} />
+                <Likes firebase={this.props.firebase} post={post} />
             </li>
         );
     }

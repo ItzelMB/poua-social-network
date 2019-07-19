@@ -10,6 +10,7 @@ label {
 .fa-file-upload {
     font-size: 2.5rem;
     color: #ffc107;
+    margin: 1rem;
 }
 
 .photoUploadContainer {
