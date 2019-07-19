@@ -1,0 +1,18 @@
+#uploadPhoto {
+    opacity: 0;
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+.fa-file-upload {
+    font-size: 2.5rem;
+    color: #ffc107;
+    margin: 1rem;
+}
+
+.photoUploadContainer {
+    height: 100%;
+}

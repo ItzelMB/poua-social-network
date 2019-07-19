@@ -1,0 +1,12 @@
+footer {
+    width: 100%;
+    height: 3.75rem;
+    background-color: #22A438;
+    bottom: 0;
+}
+
+.footerParr {
+    font-size: 1.2rem;
+    color: #ffffff;
+    padding-top: 15px;
+}

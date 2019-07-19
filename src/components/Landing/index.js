@@ -1,9 +1,10 @@
 import React from 'react';
+import SignInPage from '../SignIn';
 //import { SignUpForm } from '../SignUp';
 
 const Landing = () => (
     <div>
-        <h1>Landing</h1>
+        <SignInPage />
         {/*<SignUpForm />*/}
     </div>
 );
