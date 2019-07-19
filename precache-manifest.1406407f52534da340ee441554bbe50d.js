@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "71e65deabc37ab25427cd73adbdf2e06",
+    "revision": "2fd9a372b46a0f8e5a913ae88d01d646",
     "url": "/poua-social-network/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/poua-social-network/static/css/2.0624914a.chunk.css"
   },
   {
-    "revision": "47cfbd4d70199435b8e4",
+    "revision": "63942974772daa52916d",
     "url": "/poua-social-network/static/css/main.07425fb2.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/poua-social-network/static/js/2.d565fda3.chunk.js"
   },
   {
-    "revision": "47cfbd4d70199435b8e4",
-    "url": "/poua-social-network/static/js/main.7582ec1a.chunk.js"
+    "revision": "63942974772daa52916d",
+    "url": "/poua-social-network/static/js/main.d011ab44.chunk.js"
   },
   {
     "revision": "decb3ce0b6406596c72f",
