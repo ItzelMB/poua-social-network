@@ -12,8 +12,6 @@ import PhotoUpload from '../PhotoUpload';
 
 const HomePage = () => (
     <div>
-        {/*<p>Esta página es accesible para todos los usuarios con cuenta de sesión iniciada.</p>*/}
-
         <Posts />
         <Footer />
     </div>
@@ -42,7 +40,6 @@ class PostsBase extends Component {
     onCreatePosts = (event, authUser) => {
         let userName;
         const refThis = this;
-        console.log('photo url' + refThis.state.photo);
 
         this.props.firebase.users().child(authUser.uid).child('username').once('value')
         .then(function(dataSnapshot) {

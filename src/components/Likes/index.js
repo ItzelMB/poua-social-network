@@ -13,7 +13,6 @@ class Likes extends Component {
     }
 
     handleLike = () => {
-        //const postId = post.uid;
         const postCopy =this.state.post;
         postCopy.likes = postCopy.likes + 1;
 

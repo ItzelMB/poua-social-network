@@ -32,11 +32,6 @@ class Firebase {
 
     doSignOut = () => this.auth.signOut();
 
-    /*doSendEmailVerification = () =>
-    this.auth.currentUser.sendEmailVerification({
-        url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
-    });*/
-
     //User API
     user = uid => this.db.ref(`users/${uid}`);
     users = () => this.db.ref('users');
